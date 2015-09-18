@@ -7,12 +7,13 @@ import java.awt.image.BufferedImage;
 
 import com.randyp.tilegame.display.Display;
 import com.randyp.tilegame.gfx.ImageLoader;
+import com.randyp.tilegame.gfx.SpriteSheet;
 
 /**
  * Main game logic and base code. Starts everything, runs everything, and closes out at the end.
  * 
  * @author Armando Penblade
- * @version 0.0.7
+ * @version 0.0.8
  */
 public class Game implements Runnable {
 	
@@ -42,6 +43,12 @@ public class Game implements Runnable {
 	
 	/** Variable to track whether or not the Game is actually running */
 	private boolean running = false;
+	
+	/** The test SpriteSheet for this game */
+	private BufferedImage test;
+	
+	/** The SpriteSheet object for this game to divvy up larger SpriteSheets */
+	private SpriteSheet sheet;
 
 	/**
 	 * Default Constructor, taking in parameters to setup the main game display, then
@@ -64,6 +71,12 @@ public class Game implements Runnable {
 	private void init() {
 		// Setup the game's main Display object
 		display = new Display(title, width, height);
+		
+		// Load a test spritesheet
+		test = ImageLoader.loadImage("/textures/sheet.png");
+		
+		// Give said spritesheet to the sub-class so it can be divided
+		sheet = new SpriteSheet(test);
 		
 		// Initialize the Canvas as necessary
 		canvas = display.getCanvas();
